@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -239,7 +240,7 @@ public class Huffman {
                 code.append(strBinarDeCompress.charAt(i));
 
                 if (charCode.containsKey(code.toString())) {
-                     strDeCompress.append(charCode.get(code.toString()));
+                    strDeCompress.append(charCode.get(code.toString()));
                     code = new StringBuilder();
                 }
             }

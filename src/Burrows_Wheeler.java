@@ -2,7 +2,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Burrows_Wheeler {
-char end=(char)65520;
+    char end = (char) 65520;
+
     public String compress(String str) {
         ArrayList<String> strArray = new ArrayList<>();
 
@@ -86,19 +87,19 @@ char end=(char)65520;
 
         int n = 0;
         for (BWTtranspositionObject bwTtranspositionObject : map) {
-            if (bwTtranspositionObject.character==end){
+            if (bwTtranspositionObject.character == end) {
                 break;
             }
             n++;
         }
 
-        n=map.get(n).getNum();
-        StringBuilder out=new StringBuilder();
+        n = map.get(n).getNum();
+        StringBuilder out = new StringBuilder();
         for (int i = 0; i < map.size() - 1; i++) {
             out.append(map.get(n).getCharacter());
             n = map.get(n).getNum();
         }
-return  out;
+        return out;
     }
 
     public ArrayList<Integer> getSufficsIndex(String str) {
@@ -130,17 +131,18 @@ return  out;
         }
         return strOut;
     }
-    public StringBuilder getSuffType(String str){
-        StringBuilder strOut=new StringBuilder();
+
+    public StringBuilder getSuffType(String str) {
+        StringBuilder strOut = new StringBuilder();
 
         strOut.append('s');
-        for (int i =str.length()-1; i >0 ; i--) {
-            if (str.charAt(i)>str.charAt(i-1)){
+        for (int i = str.length() - 1; i > 0; i--) {
+            if (str.charAt(i) > str.charAt(i - 1)) {
                 strOut.append('s');
-            }else if (str.charAt(i)<str.charAt(i-1)){
+            } else if (str.charAt(i) < str.charAt(i - 1)) {
                 strOut.append('l');
-            }else {
-                strOut.append(strOut.charAt(strOut.length()-1));
+            } else {
+                strOut.append(strOut.charAt(strOut.length() - 1));
             }
         }
         return strOut.reverse();

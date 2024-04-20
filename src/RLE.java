@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class RLE {
-char flag=(char)0;
+char flag=(char)65500;
     static String noCompressionPath = "noCompression.txt";
     static String deCompressionPath = "deCompression.txt";
     static String compressionPath = "Compression.txt";

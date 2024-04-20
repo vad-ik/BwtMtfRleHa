@@ -12,13 +12,15 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("введите путь к сжимаемому файлу");
-        String path = scanner.nextLine();
-        StringBuilder strIn = readFile( path);
-        System.out.println("введите путь для нового файла ");
-        path = scanner.nextLine();
-        huffman.codingInFileToBit((rle.avtoCompress((mtf.compress((burrowsWheeler.getBWT((strIn))))))), path+"\\bwtMtfRLeHaCompress.txt");
-        toFile(bwt.decompressEffective(mtf.deCompress(rle.autoDeCompression(huffman.decodingBit(path+"\\bwtMtfRLeHaCompress.txt")))),path+"\\bwtMtfRLeHaDeCompress.txt");
+        String path ;
+        path= scanner.nextLine();
 
+        StringBuilder strIn = readFile( path);
+        System.out.println("введите путь к  каталогу, где будут созданы новые файлы");
+        path = scanner.nextLine();
+
+        huffman.codingInFileToBit((rle.avtoCompress((mtf.compress((burrowsWheeler.getBWT((strIn))))))), path+"\\bwtMtfRLeHaCompress.txt");
+        toFile(bwt.decompressEffective(mtf.deCompress( rle.autoDeCompression(huffman.decodingBit(path+"\\bwtMtfRLeHaCompress.txt")))),"oo");
     }
     static void toFile(StringBuilder str, String path) {
         try {
@@ -33,14 +35,26 @@ public class Main {
     }
     public static StringBuilder readFile(String path){
         StringBuilder strIn = new StringBuilder();
+//        try {
+//            BufferedReader reader = new BufferedReader(new FileReader(path));
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                strIn.append(line);
+//                strIn.append("\n");
+//            }
+//            reader.close();
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(path));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                strIn.append(line);
-                strIn.append("\n");
+            FileReader reader = new FileReader(new File(path));
+            int c;
+            while ((c = reader.read()) != -1) {
+                strIn.append((char) c);
             }
-            reader.close();
+
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
