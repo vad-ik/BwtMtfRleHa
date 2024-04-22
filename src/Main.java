@@ -3,25 +3,30 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         Huffman huffman = new Huffman();
         RLE rle = new RLE();
         BWTFast burrowsWheeler = new BWTFast();
         MTF mtf = new MTF();
         Burrows_Wheeler bwt = new Burrows_Wheeler();
 
+        String path;
+        StringBuilder strIn;
 
-        Scanner scanner = new Scanner(System.in);
         System.out.println("введите путь к сжимаемому файлу");
-        String path ;
         path= scanner.nextLine();
-
-        StringBuilder strIn = readFile( path);
+        strIn = readFile( path);
         System.out.println("введите путь к  каталогу, где будут созданы новые файлы");
         path = scanner.nextLine();
 
-        huffman.codingInFileToBit((rle.avtoCompress((mtf.compress((burrowsWheeler.getBWT((strIn))))))), path+"\\bwtMtfRLeHaCompress.txt");
-        toFile(bwt.decompressEffective(mtf.deCompress( rle.autoDeCompression(huffman.decodingBit(path+"\\bwtMtfRLeHaCompress.txt")))),"oo");
+
+        huffman.codingInFileToBit(rle.coderV2(mtf.compress(burrowsWheeler.getBWT(strIn))), path + "\\bwtMtfRLeHaCompress.txt");
+        StringBuilder str=mtf.deCompress(rle.autoDeCompression(huffman.decodingBit(path + "\\bwtMtfRLeHaCompress.txt")));
+
+        System.gc();
+        toFile(bwt.decompressEffective(str), path + "\\bwtMtfRLeHaDeCompress.txt");
     }
+
     static void toFile(StringBuilder str, String path) {
         try {
             FileWriter writer = new FileWriter(path, false);
@@ -33,7 +38,8 @@ public class Main {
             throw new RuntimeException(e);
         }
     }
-    public static StringBuilder readFile(String path){
+
+    public static StringBuilder readFile(String path) {
         StringBuilder strIn = new StringBuilder();
 //        try {
 //            BufferedReader reader = new BufferedReader(new FileReader(path));

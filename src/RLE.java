@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class RLE {
-char flag=(char)65500;
+char flag=(char)0;
     static String noCompressionPath = "noCompression.txt";
     static String deCompressionPath = "deCompression.txt";
     static String compressionPath = "Compression.txt";
@@ -20,23 +20,18 @@ char flag=(char)65500;
         int i;
         for (i = 0; i < str.length() - 1; i++) {
             if (str.charAt(i) == str.charAt(i + 1)) {
-                if (!alone.isEmpty()) {
-                    if (alone.length() > 2) {
-                        out.append(flag);
-                        out.append(alone);
-                        out.append(flag);
-                    } else {
-                        for (int j = 0; j < alone.length(); j++) {
-                            out.append((char) 1);
-                            out.append(alone.charAt(j));
-                        }
-                    }
-                    alone = new StringBuilder();
-                }
+                writeAlone(alone,out);
+                alone = new StringBuilder();
                 if (count == 0) {
                     count++;
                 }
                 count++;
+                if (count>65500){
+                    out.append((char) count);
+                    count = 0;
+                    out.append(str.charAt(i));
+                    i++;
+                }
             } else {
                 if (count > 0) {//запись сокращенного фрагмента
                     out.append((char) count);
@@ -53,6 +48,12 @@ char flag=(char)65500;
             out.append(str.charAt(i));
         } else {//обработка одиночного символа
             alone.append(str.charAt(i));
+            writeAlone(alone,out);
+        }
+        return out;
+    }
+  public void writeAlone(StringBuilder alone,StringBuilder out){
+        if (!alone.isEmpty()) {
             if (alone.length() > 2) {
                 out.append(flag);
                 out.append(alone);
@@ -64,12 +65,8 @@ char flag=(char)65500;
                 }
             }
         }
-        return out;
     }
 
-    public void writeAlone(StringBuilder alone, StringBuilder out) {
-
-    }
 
     public StringBuilder avtoCompress(StringBuilder str) {
 

@@ -1,14 +1,14 @@
 public class BWTtranspositionObject implements Comparable<BWTtranspositionObject> {
-    Integer num;
-    Character character;
-    public BWTtranspositionObject(Integer num, Character character) {
+    int num;
+    char character;
+    public BWTtranspositionObject(int num, char character) {
         this.num = num;
         this.character = character;
     }
-    public Integer getNum() {
+    public int getNum() {
         return num;
     }
-    public Character getCharacter() {
+    public char getCharacter() {
         return character;
     }
     @Override

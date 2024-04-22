@@ -5,13 +5,13 @@ class BWTFast
 {
     char end=(char)65520;
     // Class to store information of a suffix
-    public static class Suffix implements Comparable<Suffix>
+    public class suffix implements Comparable<suffix>
     {
         int index;
         int rank;
         int next;
 
-        public Suffix(int ind, int r, int nr)
+        public suffix(int ind, int r, int nr)
         {
             index = ind;
             rank = r;
@@ -22,7 +22,7 @@ class BWTFast
         // to compare two suffixes.
         // Compares two pairs, returns 1
         // if first pair is smaller
-        public int compareTo(Suffix s)
+        public int compareTo(suffix s)
         {
             if (rank != s.rank) return Integer.compare(rank, s.rank);
             return Integer.compare(next, s.next);
@@ -32,10 +32,10 @@ class BWTFast
     // This is the main function that takes a string 'txt'
     // of size n as an argument, builds and return the
     // suffix array for the given string
-    public static int[] suffixArray(String s)
+    public  int[] suffixArray(String s)
     {
         int n = s.length();
-        Suffix[] su = new Suffix[n];
+        suffix[] su = new suffix[n];
 
         // Store suffixes and their indexes in
         // an array of classes. The class is needed
@@ -43,7 +43,7 @@ class BWTFast
         // maintain their old indexes while sorting
         for (int i = 0; i < n; i++)
         {
-            su[i] = new Suffix(i, s.charAt(i) - '$', 0);
+            su[i] = new suffix(i, s.charAt(i) - end, 0);
         }
         for (int i = 0; i < n; i++)
             su[i].next = (i + 1 < n ? su[i + 1].rank : -1);

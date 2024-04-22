@@ -196,11 +196,10 @@ public class Huffman {
                 myChar <<= 1;
                 myChar += output.charAt(i) == '1' ? 1 : 0;
             }
-            if (myChar > 0) {
+            if ((i % 8) > 0) {
                 dos.writeByte(myChar);
-                dos.writeByte(8 - i % 8);
-
             }
+            dos.writeByte(8 - i % 8);
             dos.flush();
             dos.close();
         } catch (IOException ex) {
@@ -234,7 +233,9 @@ public class Huffman {
                 last = c;
             }
             strBinarDeCompress.delete(strBinarDeCompress.length() - 8, strBinarDeCompress.length());
-            strBinarDeCompress.delete(strBinarDeCompress.length() - 8, strBinarDeCompress.length() - 8 + last);
+            if (last != 8) {
+                strBinarDeCompress.delete(strBinarDeCompress.length() - 8, strBinarDeCompress.length() - 8 + last);
+            }
             StringBuilder code = new StringBuilder();
             for (int i = 0; i < strBinarDeCompress.length(); i++) {
                 code.append(strBinarDeCompress.charAt(i));
