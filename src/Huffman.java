@@ -212,10 +212,16 @@ public class Huffman {
         try {
             DataInputStream dos = new DataInputStream(new FileInputStream(path));
             int c = dos.readShort();
+            if (c<0){
+                c+=65536;
+            }
             ArrayList<HuffmanTreeNode> charLength = new ArrayList<>();
             for (int i = 0; i < c; i++) {
                 int ch = dos.readChar();
                 int num = dos.readByte();
+                if (num < 0) {
+                    num+= 256;
+                }
                 charLength.add(new HuffmanTreeNode("" + (char) ch, num));
             }
             HashMap<String, Character> charCode = canonicalHuffman(charLength);
@@ -237,10 +243,15 @@ public class Huffman {
                 strBinarDeCompress.delete(strBinarDeCompress.length() - 8, strBinarDeCompress.length() - 8 + last);
             }
             StringBuilder code = new StringBuilder();
+
             for (int i = 0; i < strBinarDeCompress.length(); i++) {
+
+
+
                 code.append(strBinarDeCompress.charAt(i));
 
                 if (charCode.containsKey(code.toString())) {
+
                     strDeCompress.append(charCode.get(code.toString()));
                     code = new StringBuilder();
                 }

@@ -22,7 +22,6 @@ public class Main {
 
         huffman.codingInFileToBit(rle.coderV2(mtf.compress(burrowsWheeler.getBWT(strIn))), path + "\\bwtMtfRLeHaCompress.txt");
         StringBuilder str=mtf.deCompress(rle.autoDeCompression(huffman.decodingBit(path + "\\bwtMtfRLeHaCompress.txt")));
-
         System.gc();
         toFile(bwt.decompressEffective(str), path + "\\bwtMtfRLeHaDeCompress.txt");
     }
